@@ -13,3 +13,7 @@ def index(request):
         city2 = request.get('city2', None)
     else:
         return render(request, "weather_app/index.html")
+
+def fetch_weather_forecast(city, api_key, current_weather_url, forecast_url):
+    response = requests.get(current_weather_url.format(city, api_key)).json()
+    lat, lon = response
