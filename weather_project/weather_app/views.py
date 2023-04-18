@@ -16,4 +16,23 @@ def index(request):
 
 def fetch_weather_forecast(city, api_key, current_weather_url, forecast_url):
     response = requests.get(current_weather_url.format(city, api_key)).json()
-    lat, lon = response
+    lat, lon = response["coord"]["lat"], response["coord"]["lon"]
+    forecast_response = request.get(forecast_url.format(lat, lon, api_key)).json()
+
+    # temp is in kelvin
+    weather_data = {
+        "city": city,
+        "temperature": round(response["main"]["temp"] - 273.15, 2),
+        "description": response["weather"][0]["description"],
+        "icon": response["weather"][0]["icon"]
+    }
+
+    daily_forecast = []
+    for daily_data in forecast_response["daily"][:5]:
+        daily_forecast.append({
+            "day": datetime.datetime.fromtimestamp(daily_data["dt"]).strftime("%A"),
+            "min_temp": round(daily_data["temp"]["min"] - 273.15, 2),
+            "max_temp": round(daily_data["temp"]["max"] - 273.15, 2),
+            "description": daily_data["weather"][0]["description"],
+            "icon": daily_data["weather"][0]["icon"]
+        })
