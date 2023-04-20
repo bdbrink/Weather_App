@@ -36,3 +36,5 @@ def fetch_weather_forecast(city, api_key, current_weather_url, forecast_url):
             "description": daily_data["weather"][0]["description"],
             "icon": daily_data["weather"][0]["icon"]
         })
+
+    return weather_data, daily_forecast
