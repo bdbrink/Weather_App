@@ -25,6 +25,7 @@ def index(request):
             "weather_data2": weather_data2,
             "daily_forecast2": daily_forecast2,
         }
+        return render(request, "weather_app/index.html", context)
     else:
         return render(request, "weather_app/index.html")
 
