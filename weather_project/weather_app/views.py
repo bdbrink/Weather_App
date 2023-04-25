@@ -3,6 +3,8 @@ import requests
 from django.shortcuts import render
 
 # Create your views here.
+
+
 def index(request):
     API_KEY = "bd8a0a0778426c96165226c224399ce2"
     current_weather_url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}"
@@ -12,10 +14,12 @@ def index(request):
         city1 = request.POST['city1']
         city2 = request.get('city2', None)
 
-        weather_data1, daily_forecast1 = featch_weather_and_forecast(city1, API_KEY, current_weather_url, forecast_url)
+        weather_data1, daily_forecast1 = featch_weather_and_forecast(
+            city1, API_KEY, current_weather_url, forecast_url)
 
         if city2:
-            weather_data2, daily_forecast2 = featch_weather_and_forecast(city2, API_KEY, current_weather_url, forecast_url)
+            weather_data2, daily_forecast2 = featch_weather_and_forecast(
+                city2, API_KEY, current_weather_url, forecast_url)
         else:
             weather_data2, daily_forecast2 = None, None
 
@@ -29,10 +33,12 @@ def index(request):
     else:
         return render(request, "weather_app/index.html")
 
+
 def fetch_weather_forecast(city, api_key, current_weather_url, forecast_url):
     response = requests.get(current_weather_url.format(city, api_key)).json()
     lat, lon = response["coord"]["lat"], response["coord"]["lon"]
-    forecast_response = request.get(forecast_url.format(lat, lon, api_key)).json()
+    forecast_response = request.get(
+        forecast_url.format(lat, lon, api_key)).json()
 
     # temp is in kelvin
     weather_data = {
