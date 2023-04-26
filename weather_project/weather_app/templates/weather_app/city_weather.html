@@ -5,3 +5,9 @@
     <img src="http://openweathermap.org/img/w/{{ weather_data.icon }}".png alt="{{ weather_data.description }}"
 {% endif %}
 
+{% if daily_forecast %}
+    <h2>5-day Forecast</h2>
+    <div class="forecast-container">
+        
+    </div>
+{% endif %}
