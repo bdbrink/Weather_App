@@ -6,7 +6,7 @@
 </head>
 <body>
     <form method="post">
-        {% crsf_token %}
+        {% csrf_token %}
         <input type="text" name="city1" placeholder="City 1">
         <input type="text" name="city2" placeholder="City 2">
         <button type="submit">Compare Weather</button>
